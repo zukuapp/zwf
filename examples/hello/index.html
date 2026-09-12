@@ -1,0 +1,4 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hello ZWF</title>
+<style>body{margin:0;background:#101820;color:white;font:20px system-ui;display:grid;place-items:center;min-height:100vh}button{padding:1rem 2rem;border:0;border-radius:12px;background:#ec008c;color:white;font:inherit;cursor:pointer}</style></head>
+<body><button id="game">Score: 0</button><script>let score=0;document.querySelector('#game').addEventListener('click',event=>event.currentTarget.textContent=`Score: ${++score}`);</script></body></html>

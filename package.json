@@ -1,0 +1,15 @@
+{
+  "name": "@zuku/zwf",
+  "version": "0.1.0",
+  "description": "ZWF HTML5 game package specification, compiler and inspector for ZUKU Jump",
+  "type": "module",
+  "license": "MIT",
+  "engines": { "node": ">=22" },
+  "bin": { "zwf": "./src/cli.mjs" },
+  "exports": { ".": "./src/format.mjs" },
+  "files": ["src/", "README.md", "SPEC.md", "LICENSE", "examples/"],
+  "repository": { "type": "git", "url": "https://github.com/zukuapp/zwf.git" },
+  "publishConfig": { "access": "public" },
+  "scripts": { "test": "node --test", "prepublishOnly": "npm test" },
+  "dependencies": { "fflate": "0.8.3" }
+}
