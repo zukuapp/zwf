@@ -16,6 +16,10 @@ The manifest requires `format: "zwf"`, `version: 2`, `profile: "html5-sandbox/2"
 
 ZIP admission rejects traversal, absolute/drive paths, backslashes, control characters, URL escape characters, case-colliding paths, symlinks, encryption, split archives, ZIP64, overlapping entries, conflicting local/central headers, native executable signatures and unsupported asset extensions. Stored and deflate methods are supported. CRC-32 is checked for each member before compilation. Limits: 8,000 entries; 500 MiB compressed ZIP; 128 MiB per file; 512 MiB total expanded; 2 MiB manifest. Entries at least 1 MiB cannot exceed an 80:1 expansion ratio. Parsers inspect metadata before decompression and reject declared and actual size mismatches.
 
+Paths also reject NFC aliases, file/directory collisions and depth above 64. Non-ASCII names require the ZIP UTF-8 flag. Local CRC/size fields and optional signed or unsigned data descriptors must agree with the central directory. Entries occupy one contiguous local-file region; self-extracting prefixes and hidden gaps are outside this game profile. Ordinary ZIP comments remain supported.
+
+Output limits are checked during streaming DEFLATE, including when local and central uncompressed sizes agree with each other but lie about actual output. `fflate` is pinned to `0.8.3`; final-block and trailing-data checks are covered by regression tests. Invalid container JSON/member shapes produce `ZwfError`.
+
 Recompiling identical ZIP bytes with identical options yields identical ZWF2 bytes. Integrity hashes detect corruption; they do **not** establish the author's identity and are not digital signatures.
 
 ## Mandatory player behavior
