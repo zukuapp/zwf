@@ -20,13 +20,13 @@ Paths also reject NFC aliases, file/directory collisions and depth above 64. Non
 
 Output limits are checked during streaming DEFLATE, including when local and central uncompressed sizes agree with each other but lie about actual output. `fflate` is pinned to `0.8.3`; final-block and trailing-data checks are covered by regression tests. Invalid container JSON/member shapes produce `ZwfError`.
 
-Recompiling identical ZIP bytes with identical options yields identical ZWF2 bytes. Integrity hashes detect corruption; they do **not** establish the author's identity and are not digital signatures.
+Recompiling identical ZIP bytes with identical options yields identical ZWF2 bytes. Integrity hashes detect corruption; they do not establish the author's identity and are not digital signatures.
 
 ## Mandatory player behavior
 
 1. Validate the container, manifest, archive boundaries, paths, entrypoint and digests before use. Do not execute package code on the server.
 2. Serve package files with correct MIME types, `nosniff`, no referrer and CORS for opaque-origin resource requests. Protect package routes with the same content access checks as the game. Never expose arbitrary filesystem paths.
-3. Embed only with `sandbox="allow-scripts allow-pointer-lock"`. Never grant `allow-same-origin`, popups, downloads, top navigation or forms. Apply a matching **response-header** CSP sandbox so opening HTML directly cannot acquire the platform origin.
+3. Embed only with `sandbox="allow-scripts allow-pointer-lock"`. Never grant `allow-same-origin`, popups, downloads, top navigation or forms. Apply a matching response-header CSP sandbox so opening HTML directly cannot acquire the platform origin.
 4. CSP defaults to `default-src 'none'`, `base-uri 'none'`, `form-action 'none'`, `object-src 'none'`, `frame-src 'none'`. Script/style/image/media/font/connect sources are limited to the exact game package asset directory, with inline scripts/styles and data/blob resources as needed. Do not allow the whole platform origin via `'self'`. WebAssembly compilation may use `'wasm-unsafe-eval'`; general JavaScript `'unsafe-eval'` is not granted.
 5. Deny camera, microphone, geolocation, payment, USB/serial/Bluetooth, clipboard, screen capture, storage-access and credential APIs. Never forward account credentials, host filesystem or storage capabilities into a game.
 6. Lifecycle messages contain `channel: "zuku-html5"`, `version: 1`, a per-mount random `session`, and `action: "ready" | "error"`. The parent must check the exact iframe `contentWindow`, origin `"null"`, session and allowed action. Messages provide status only and never authorize host operations.
