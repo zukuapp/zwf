@@ -20,11 +20,11 @@
 
 ## 개요
 
-`@zuku/zwf`는 HTML·JavaScript·CSS·WebAssembly와 로컬 자산이 담긴 ZIP을 ZUKU Jump용 `.zwf` 파일로 컴파일하고 검사합니다. 파일 형식과 플레이어의 필수 실행 경계는 [SPEC.md](SPEC.md)를 기준으로 합니다.
+`@zuku/zwf`는 HTML·JavaScript·CSS·WebAssembly와 로컬 자산이 담긴 ZIP을 ZUKU Jump용 `.zwf` 파일로 컴파일하고 검사합니다.
 
-이 컴파일러는 ZWF2만 출력합니다. 파일은 16바이트 `ZWF2` 헤더, JSON 매니페스트, ZIP으로 구성됩니다. 프로필은 `profile: "html5-sandbox/2"`입니다. 파일별 SHA-256은 손상을 탐지합니다. 제작자 신원은 증명하지 않습니다. 필드·한도·거부 조건은 [형식 명세](SPEC.md)에 정의되어 있습니다.
+이 컴파일러는 ZWF2만 출력합니다. 파일은 16바이트 `ZWF2` 헤더, JSON 매니페스트, ZIP으로 구성됩니다. 프로필은 `profile: "html5-sandbox/2"`입니다.
 
-`.zwf`는 자체 실행 파일이 아닙니다. 호환 플레이어는 사용 전에 파일을 검증하고, 게임을 불투명 출처의 제한된 iframe에 넣고, 응답 헤더 CSP와 브라우저 권한 제한을 적용해야 합니다. 이 경계는 CPU·GPU·메모리 사용량의 결정적 제한이나 완전한 네트워크 차단을 포함하지 않습니다. 플레이어 구현은 [필수 동작](SPEC.md#mandatory-player-behavior)을 따라야 합니다.
+`.zwf`는 호환 플레이어가 실행합니다. 플레이어는 사용 전에 파일을 검증하고, 게임을 불투명 출처의 제한된 iframe에 넣고, 응답 헤더 CSP와 브라우저 권한 제한을 적용해야 합니다. 플레이어 구현은 [필수 동작](SPEC.md#mandatory-player-behavior)을 따라야 합니다.
 
 ZUKBOX의 이전 ZWF1 바이너리도 `.zwf` 확장자를 사용하지만 다른 형식입니다. ZWF1의 파서와 초안 명세는 [`zukbox-runtime`](https://github.com/zukuapp/zukbox-runtime)에 있습니다.
 
@@ -35,7 +35,7 @@ ZUKBOX의 이전 ZWF1 바이너리도 `.zwf` 확장자를 사용하지만 다른
 
 ## 설치
 
-이 패키지는 npm 레지스트리에 게시되지 않았습니다. 저장소를 클론해 설치합니다.
+저장소를 클론해 설치합니다.
 
 ```sh
 git clone https://github.com/zukuapp/zwf.git
@@ -80,7 +80,7 @@ const verified = await inspectZwf(bytes);
 console.log(manifest.profile, verified.manifest.files.length);
 ```
 
-`@zuku/zwf` 이름으로 가져오려면 이 저장소를 로컬 패키지로 설치합니다. [`src/format.mjs`](src/format.mjs)에서 직접 가져오는 방식도 지원합니다. `compileZip`은 ZIP의 경로·파일 종류·크기·무결성을 검사합니다. 업로드된 게임 코드는 서버에서 실행하지 않습니다.
+`@zuku/zwf` 이름으로 가져오려면 이 저장소를 로컬 패키지로 설치합니다. [`src/format.mjs`](src/format.mjs)에서 직접 가져오는 방식도 지원합니다. `compileZip`은 ZIP의 경로·파일 종류·크기·무결성을 검사합니다.
 
 ## 설정
 
